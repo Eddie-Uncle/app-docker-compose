@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mainline:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+      args:
+        NGINX_VERSION: "${DEFAULT_NGINX_VERSION}"
+        BUILD_FILE: "debian.conf"
+    image: app:mainline
+    depends_on:
+      - stable
+  stable:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+      args:
+        NGINX_VERSION: "${DEFAULT_NGINX_VERSION}"
+        BUILD_FILE: "debian.conf"
+    image: app:stable
+
+  alpine:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+      args:
+        NGINX_VERSION: "1.21.3"
+        BUILD_FILE: "alpine.conf"
+    image: app:alpine
